@@ -51,7 +51,7 @@ function drawBall() { // there we draw the ball and fill it with color
 
 function drawBricks() { // there we draw bricks at random free place at the right row and column and fill them with color
     for (let c=0; c<BRICK_COLUMN_COUNT; c++) {
-        for (r=0; r<BRICK_ROW_COUNT; r++) {
+        for (let r=0; r<BRICK_ROW_COUNT; r++) {
             if (bricks[c][r].status === 1) {
                 const BRICK_X = r * (BRICK_WIDTH + BRICK_PADDING) + BRICK_OFFSET;
                 const BRICK_Y = c * (BRICK_HEIGHT + BRICK_PADDING) + BRICK_OFFSET;
@@ -128,17 +128,17 @@ function draw() { // there we draw all elements
     drawLives();
     detectCollision();
 
-    ballX += dx;
+    ballX += dx; // ballX = ballX + dx
     ballY += dy;
 
-    if (ballX + dx < BALL_RADIUS || ballX > CANVAS_NODE.width - BALL_RADIUS) { // check collision with left and right border and bounce off
+    if (ballX + dx < BALL_RADIUS || ballX > CANVAS_NODE.width - BALL_RADIUS) { // check collision with left and right borders and bounce off
         dx = -dx;
     }
     if (ballY + dy < BALL_RADIUS) { // check collision with the top border
         dy = -dy;
     }
     if (ballY + dy > CANVAS_NODE.height - BALL_RADIUS) { // if the ball will goes out of the borders of the playground you will lose one life 
-        if (ballX > paddleX && ballX < paddleX + PADDLE_WIDTH) {
+        if (ballX > paddleX && ballX < paddleX + PADDLE_WIDTH) { // collision with platform
             dy = -dy;
         } else {
             lives--;
@@ -155,6 +155,6 @@ function draw() { // there we draw all elements
             }
         }
     }
-    requestAnimationFrame(draw); // there we draw the animation
+    requestAnimationFrame(draw); // to draw more than one time
 }
 draw(); // there we draw all
